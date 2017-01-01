@@ -13,7 +13,7 @@ def main():
     }
 
     body = {
-            'devices': GATEWAY['uuid'],
+            'devices': DEVICE['uuid'],
             'payload': {
                         "example_key":"example_value"
             }
@@ -23,7 +23,7 @@ def main():
     print "Publishing from device (uuid): {}\n".format(DEVICE['uuid'])
 
     try:
-        response = requests.request("POST", "http://{}/messages".format(HOST), headers=headers, data=json.dumps(body), auth=(DEVICE['uuid'], DEVICE['token']))
+        response = requests.request("POST", "http://{}/messages".format(HOST), headers=headers, data=json.dumps(body), auth=(GATEWAY['uuid'], GATEWAY['token']))
     except requests.ConnectionError:
         print "Couldn't publish to EMBERS"
         exit(1)
