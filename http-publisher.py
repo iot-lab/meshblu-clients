@@ -1,7 +1,11 @@
+#!/usr/bin/env python
+
 import requests
 import json
 
-from constants import HOST, DEVICE, GATEWAY
+from config import broker_address as HOST
+from config import device as DEVICE
+from config import auth as GATEWAY
 
 def main():
     headers = {
