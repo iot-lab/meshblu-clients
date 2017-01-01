@@ -16,3 +16,21 @@ or install and run your own local instance.
 
 To install and run a local instance of Meshblu,
 see https://github.com/emberscity/meshblu
+
+
+Configuring
+-----------
+
+Meshblu requires authentication on most request.  You will need to either
+use credentials provided by an admin - for the production instance - or
+create your own "auth device" - for your local instance.
+
+To create a first "auth device" on your local Meshblu instance, use:
+
+	curl -X POST -d "type=example" http://localhost/devices
+
+The command above should produce a json result showing "uuid" and "token"
+values that can be used as credentials for subsequent Meshblu api calls.
+
+Copy file `config.sample.py` to `config.py` and paste in there the values
+of `uuid` and `token` into the `auth` dict replacing sample values.
