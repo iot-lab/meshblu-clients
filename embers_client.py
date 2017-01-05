@@ -1,5 +1,7 @@
-from constants import HOST, PORT, CREDENTIALS
 from socketIO_client import SocketIO, ConnectionError
+
+from config import broker_address as HOST
+from config import device as CREDENTIALS
 
 def ready(args):
     print "Listening to Gateway {}\n".format(CREDENTIALS['uuid'])
@@ -10,7 +12,7 @@ def event(event):
 
 def main():
     try:
-        socket = SocketIO(HOST) #socket = SocketIO(HOST, PORT)
+        socket = SocketIO(HOST, 9180) # port = see socketio config in docker-compose.yml
     except ConnectionError:
         print "Couldn't connect to Meshblu"
         exit(1)
