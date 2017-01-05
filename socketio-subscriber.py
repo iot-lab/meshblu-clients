@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from socketIO_client import SocketIO, ConnectionError
 
 from config import broker_address as HOST
