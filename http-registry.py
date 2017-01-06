@@ -51,23 +51,22 @@ class MeshbluHTTPClient(object):
         self.broker_url = broker_url
 
     def get_devices(self, auth_uuid, auth_token):
-        return self._call('GET', "devices", auth_uuid, auth_token)
+        return self._call('GET', "devices", (auth_uuid, auth_token))
 
     def register_device(self, payload):
-        return self._call('POST', "devices", None, None, json=payload)
+        return self._call('POST', "devices", None, json=payload)
 
     def unregister_device(self, device_uuid, device_token):
         return self._call('DELETE', "devices/" + device_uuid,
-                          device_uuid, device_token)
+                          (device_uuid, device_token))
 
-    def _call(self, method, url, auth_uuid, auth_token, json=None):
+    def _call(self, method, url, auth, json=None):
         req = requests.request(
                   method,
                   self.broker_url + "/" + url,
                   json=json,
-                  headers={ 'meshblu_auth_uuid': auth_uuid,
-                            'meshblu_auth_token': auth_token,
-                  } if auth_uuid else None)
+                  auth=auth,
+        )
         req.raise_for_status()
         return req.json()
 
