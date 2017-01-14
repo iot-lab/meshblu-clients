@@ -15,6 +15,7 @@ def event(event):
 def main():
     try:
         socket = SocketIO(HOST, 9180) # port = see socketio config in docker-compose.yml
+        #socket = SocketIO(HOST) # use this if socketio service is on port 80
     except ConnectionError:
         print "Couldn't connect to Meshblu"
         exit(1)
