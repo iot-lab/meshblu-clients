@@ -32,7 +32,7 @@ def on_publish(client, response):
 class CoapClient(coapClient):
 
     def __init__(self, destination):
-        coapClient.__init__(self, udpPort=0)
+        coapClient.__init__(self, udpPort=50000)
         self.destination = destination
 
     def set_credentials(self, uuid, token):
