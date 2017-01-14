@@ -2,3 +2,5 @@ CoAPy==4.0.2
 paho-mqtt==1.2
 requests==2.12.4
 socketIO-client==0.7.2
+openwsn-coap==0.0.2
+pydispatch==1.1.0
