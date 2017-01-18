@@ -15,7 +15,7 @@ Either use the production instance at `data.embers.city`,
 or install and run your own local instance.
 
 To install and run a local instance of Meshblu,
-see https://github.com/emberscity/meshblu
+see https://github.com/iotlab/meshblu
 
 
 Configuring
