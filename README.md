@@ -21,16 +21,17 @@ see https://github.com/iotlab/meshblu
 Configuring
 -----------
 
+Copy file `config.sample.py` to `config.py` and inspect content.
+
 Meshblu requires authentication on most request.  You will need to either
 use credentials provided by an admin - for the production instance - or
 create your own "auth device" - for your local instance.
 
 To create a first "auth device" on your local Meshblu instance, use:
 
-	curl -X POST -d "type=example" http://localhost/devices
+	./http-registry.py register
 
-The command above should produce a json result showing "uuid" and "token"
-values that can be used as credentials for subsequent Meshblu api calls.
+Copy values `uuid` and `token` in the result above and edit file `config.py`
+to replace sample values in the `auth` dict.
 
-Copy file `config.sample.py` to `config.py` and paste in there the values
-of `uuid` and `token` into the `auth` dict replacing sample values.
+Repeat registry and edit operations for the `device` dict.
