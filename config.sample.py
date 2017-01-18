@@ -6,4 +6,4 @@ device = {
 	"uuid": "728ba9f2-9ff8-4f0a-911d-c58a5480a011",
 	"token": "056a5fbe39e5e463c018bd4194c0a0c83379323a"
 }
-broker_address = "localhost"
+broker_address = "127.0.0.1"
