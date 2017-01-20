@@ -24,8 +24,7 @@ defines.OptionRegistry.LIST[99] = defines.OptionItem(99, "password", defines.STR
 
 
 def main():
-    #client = CoapClient(broker_address)
-    client = CoapClient("::1")
+    client = CoapClient(broker_address)
     client.set_credentials(auth["uuid"] , auth["token"])
 
     path = "messages"
