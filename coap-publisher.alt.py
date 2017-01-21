@@ -16,7 +16,7 @@ from config import broker_address
 
 import logging
 logging.basicConfig()
-#logging.getLogger('coapthon').setLevel(logging.DEBUG)
+logging.getLogger('coapthon').setLevel(logging.WARNING)
 
 # define Meshblu specific auth options
 defines.OptionRegistry.LIST[98] = defines.OptionItem(98, "username", defines.STRING, False, False)
