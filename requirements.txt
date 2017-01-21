@@ -1,5 +1,4 @@
 paho-mqtt==1.2
 requests==2.12.4
 socketIO-client==0.7.2
-#CoAPy==4.0.2
-git+https://github.com/Tanganelli/CoAPthon.git@379b5c6fc02ae968851cabfe58b3660cfd8945de
+git+https://github.com/iot-lab/CoAPthon.git@master
