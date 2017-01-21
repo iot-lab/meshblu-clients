@@ -46,3 +46,10 @@ CoAP subscriber (observe)
 The current implementation of `coap-subscriber.py` is based on coapthon
 and is working more-or-less as expected, except that notifications stop
 being received after some time (of inactivity).
+
+
+Additional resources
+====================
+
+- https://meshblu-coap.readme.io/docs/messages
+- https://meshblu-coap.readme.io/docs/subscribe
