@@ -38,3 +38,11 @@ As of Jan 2017, the following is available via pip:
 The two basic non-framework-oriented implementation have their gotchas:
 - openwsn-coap 0.0.2 does not provide support for the observe specification
 - CoAPy 4.0.2 (coapthon) causes crash on the Meshblu server when using observe
+
+
+CoAP subscriber (observe)
+=========================
+
+The current implementation of `coap-subscriber.py` is based on coapthon
+and is working more-or-less as expected, except that notifications stop
+being received after some time (of inactivity).
