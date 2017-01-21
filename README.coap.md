@@ -7,8 +7,8 @@ uuid/token pairs sent along requests.
 The Meshblu CoAP server relies on CoAP options to
 implement a mechanism similar to "basic auth" for CoAP.
 
-option 98 (non-standard) = username (uuid)
-option 99 (non-standard) = password (token)
+- option 98 (non-standard) = username (uuid)
+- option 99 (non-standard) = password (token)
 
 While CoAP options specification is part of the standard,
 (see https://tools.ietf.org/html/rfc7252#section-5.4)
