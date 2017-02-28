@@ -1,2 +1,4 @@
 *.pyc
 config.py
+*.egg-info
+.cache
