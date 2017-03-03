@@ -2,23 +2,19 @@ import pytest
 
 from embers.meshblu.http import Client
 
-class Gateway: pass
-class Device: pass
+import env
+Gateway, Device = env.get_devices()
 
 
 def test_register_gw_device(api):
     ret = api.register_device()
-
-    Gateway.auth = (ret['uuid'], ret['token'])
-    Gateway.uuid = ret['uuid']
+    env.set_device(Gateway, ret)
 
 
 def test_register_device(api):
     payload = { "test_key": "test value" }
     ret = api.register_device(payload)
-
-    Device.auth = (ret['uuid'], ret['token'])
-    Device.uuid = ret['uuid']
+    env.set_device(Device, ret)
 
 
 def test_get_devices(api):
