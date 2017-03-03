@@ -1,4 +1,23 @@
-#!/usr/bin/env python
+import json
+
+
+class Client:
+
+    def __init__(self, broker_address, auth=None):
+        self.client = CoapClient(broker_address)
+        self.auth = auth
+
+    def publish(self, target_uuid, payload):
+        self.client.set_credentials(*self.auth)
+        path = "messages"
+        message = json.dumps({
+            "devices": [ target_uuid ],
+            "payload": payload,
+        } )
+        self.client.post(path, message)
+        self.client.stop()
+
+
 
 from coapthon import defines
 from coapthon.client.coap import CoAP
@@ -8,40 +27,19 @@ from coapthon.utils import generate_random_token
 from multiprocessing import Queue
 import random
 
-import json
-
-from config import auth
-from config import device
-from config import broker_address
-
-# define Meshblu specific auth options
-defines.OptionRegistry.LIST[98] = defines.OptionItem(98, "username", defines.STRING, False, False)
-defines.OptionRegistry.LIST[99] = defines.OptionItem(99, "password", defines.STRING, False, False)
-
-
-def main():
-    client = CoapClient(broker_address)
-    client.set_credentials(auth["uuid"] , auth["token"])
-
-    path = "messages"
-    message = json.dumps( { "devices": [ device["uuid"] ], "payload": { "black": "on" }} )
-    print("publishing: path=" + path + " message=" + message)
-    client.post(path, message, on_publish)
-
-def on_publish(client, response):
-    print("published")
-    client.stop()
-
-
 class CoapClient(object):
 
     def __init__(self, broker_addr):
         self.destination = (broker_addr, 5683)
-        self.protocol = CoAP(self.destination, random.randint(1, 65535), self._wait_response)
+        self.protocol = CoAP(
+            self.destination,
+            random.randint(1, 65535),
+            self._wait_response)
         self.queue = Queue()
 
     def set_credentials(self, username, password):
-        # code below is Meshblu specific
+        _define_meshblu_coap_auth_options()
+
         self.option_username = Option()
         self.option_password = Option()
         self.option_username.number = 98
@@ -77,4 +75,8 @@ class CoapClient(object):
             self.queue.put(message)
 
 
-main()
+def _define_meshblu_coap_auth_options():
+    defines.OptionRegistry.LIST[98] = \
+        defines.OptionItem(98, "username", defines.STRING, False, False)
+    defines.OptionRegistry.LIST[99] = \
+        defines.OptionItem(99, "password", defines.STRING, False, False)
