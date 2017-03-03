@@ -21,17 +21,32 @@ see https://github.com/iotlab/meshblu
 Configuring
 -----------
 
-Copy file `config.sample.py` to `config.py` and inspect content.
+The EMBERS use-case of Meshblu requires the following:
 
-Meshblu requires authentication on most request.  You will need to either
-use credentials provided by an admin - for the production instance - or
-create your own "auth device" - for your local instance.
+- a "gateway" device, the target of events publishing
+- a "sensor"  device, the origin of events
 
-To create a first "auth device" on your local Meshblu instance, use:
 
-	./http-registry.py register
+To configure the Meshblu instance, use:
 
-Copy values `uuid` and `token` in the result above and edit file `config.py`
-to replace sample values in the `auth` dict.
+	./registry.py init_config
 
-Repeat registry and edit operations for the `device` dict.
+
+This will create both devices on the (local) Meshblu instance
+and a file `config.py` with devices info and a reference to the broker.
+
+(you can specify the prod instance address on the command line)
+
+
+Checking it works
+-----------------
+
+To check things work, use the sample cli programs:
+
+	./registry.py list
+	./subscriber.py  # (run in separate terminal)
+	./publisher.py
+
+or run the test:
+
+	pytest -v
