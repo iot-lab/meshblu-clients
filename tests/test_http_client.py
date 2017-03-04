@@ -30,13 +30,11 @@ def test_publish(api, subscriber):
         "publish_from_device": Device.uuid,
         "to_gateway": Gateway.uuid,
     }
+
+    subscriber.subscribe_device(Gateway)
+
     api.auth = Device.auth
-
-    subscriber.auth = Gateway.auth
-    subscriber.subscribe(Gateway.uuid)
-
-    ret = api.publish(Gateway.uuid, payload)
-    assert ret == None
+    api.publish(Gateway.uuid, payload)
 
     msg = subscriber.get_message()
     assert msg.payload == payload
