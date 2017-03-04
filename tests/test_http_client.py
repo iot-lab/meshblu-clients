@@ -8,12 +8,16 @@ Gateway, Device = env.get_devices()
 
 def test_register_gw_device(api):
     ret = api.register_device()
+    assert ret["uuid"]
+    assert ret["token"]
+    assert ret["meshblu"]["createdAt"]
     env.set_device(Gateway, ret)
 
 
 def test_register_device(api):
-    payload = { "test_key": "test value" }
-    ret = api.register_device(payload)
+    metadata = { "test_key": "test value" }
+    ret = api.register_device(payload=metadata)
+    assert ret["test_key"] == "test value"
     env.set_device(Device, ret)
 
 
@@ -23,6 +27,10 @@ def test_get_devices(api):
     uuids = [ device['uuid'] for device in ret['devices'] ]
     assert Gateway.uuid in uuids
     assert Device.uuid in uuids
+
+    device = [ d for d in ret['devices'] if d["uuid"] == Device.uuid ][0]
+    assert device.has_key("test_key")
+    assert device["test_key"] == "test value"
 
 
 def test_publish(api, subscriber):
