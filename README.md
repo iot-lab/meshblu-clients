@@ -21,21 +21,24 @@ see https://github.com/iotlab/meshblu
 Configuring
 -----------
 
-The EMBERS use-case of Meshblu requires the following:
-
-- a "gateway" device, the target of events publishing
-- a "sensor"  device, the origin of events
-
+The EMBERS use-case of Meshblu revolves around a "gateway"
+device, the target of events publishing, and a "sensor" device,
+the origin of events.  These devices need to be created on the
+Meshblu instance prior to further using the sample clients.
 
 To configure the Meshblu instance, use:
 
 	./registry.py init_config
 
 
-This will create both devices on the (local) Meshblu instance
-and a file `config.py` with devices info and a reference to the broker.
+This will create the devices and generate file `config.py` with
+devices info (uuid, token) and a reference to the (local) broker.
+This configuration is in turn loaded by the sample cli programs.
 
-(you can specify the prod instance address on the command line)
+To specify an alternate Meshblu instance for the configuration,
+use the following:
+
+	./registry.py init_config <meshblu_broker_address>
 
 
 Checking it works
