@@ -51,6 +51,14 @@ To check things work, use the sample cli programs:
 	./subscriber.py  # (run in separate terminal)
 	./publisher.py
 
-or run the test:
 
+Running the tests
+-----------------
+
+The tests essentially mirror the 'Checking it works' scenario,
+hitting in turn on both the lib and cli tools.
+
+To run the tests:
+
+	pip install pytest
 	pytest -v
