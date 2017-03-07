@@ -33,6 +33,16 @@ def test_get_devices(api):
     assert device["test_key"] == "test value"
 
 
+def test_get_devices_with_query(api):
+    query = { "test_key": "test value" }
+    api.auth = Gateway.auth
+    ret = api.get_devices(query)
+
+    uuids = [ device['uuid'] for device in ret['devices'] ]
+    assert Device.uuid in uuids
+    assert Gateway.uuid not in uuids
+
+
 def test_publish(api, subscriber):
     payload = {
         "publish_from_device": Device.uuid,
