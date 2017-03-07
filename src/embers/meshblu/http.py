@@ -7,8 +7,8 @@ class Client:
         self.broker_url = "http://{}/".format(broker_host)
         self.auth = auth
 
-    def get_devices(self):
-        return self._call('GET', "devices")
+    def get_devices(self, query=None):
+        return self._call('GET', "devices", json=query)
 
     def register_device(self, payload=None):
         return self._call('POST', "devices", json=payload)

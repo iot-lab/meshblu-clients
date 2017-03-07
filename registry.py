@@ -15,24 +15,25 @@ def main():
 
     cmd = sys.argv[1]
     if   cmd == "list":
-        list_devices()
+        query = dict([ x.split("=") for x in sys.argv[2:] ])
+        list_devices(query)
     elif cmd == "register":
         register_device()
     elif cmd == "unregister":
         unregister_device({ "uuid": sys.argv[2], "token": sys.argv[3] })
     elif cmd == "init_config":
-        broker_address = sys.argv[2] if len(sys.argv) > 2 else "127.0.0.1"
+        broker_address = sys.argv[2:3] or "127.0.0.1"
         init_config(broker_address)
     else:
         print("unknown command: " + cmd)
         sys.exit(1)
 
 
-def list_devices():
+def list_devices(query=None):
     config = get_config()
     api = get_meshblu_api()
     api.auth = (config.gateway['uuid'], config.gateway['token'])
-    devices = api.get_devices()
+    devices = api.get_devices(query)
     print(json.dumps(devices))
 
 
