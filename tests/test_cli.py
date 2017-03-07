@@ -2,6 +2,14 @@ import pytest
 
 from runner import run
 
+import os
+CONFIG_PY = "config.py"
+
+
+def test_backup_config_py():
+    if os.path.exists(CONFIG_PY):
+        os.rename(CONFIG_PY, CONFIG_PY+".pytest.bak")
+
 
 def test_registry_no_args():
     run("./registry.py", raw=True)
@@ -45,3 +53,11 @@ def test_cleanup_config_devices():
     cmd = "./registry.py unregister {uuid} {token}"
     run(cmd.format(**config.gateway))
     run(cmd.format(**config.device))
+
+    os.remove("config.py")
+    os.remove("config.pyc")
+
+
+def test_restore_config_py():
+    if os.path.exists(CONFIG_PY+".pytest.bak"):
+        os.rename(CONFIG_PY+".pytest.bak", CONFIG_PY)
