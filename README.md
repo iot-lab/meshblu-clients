@@ -47,6 +47,7 @@ Checking it works
 To check things work, use the sample cli programs:
 
 	./registry.py list
+	./registry.py list device=gateway
 	./subscriber.py  # (run in separate terminal)
 	./publisher.py
 
