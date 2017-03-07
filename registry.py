@@ -41,7 +41,8 @@ def register_device():
     api = get_meshblu_api()
     register_payload = { "test key": "test value" }
     device = api.register_device(register_payload)
-    print("uuid: {}\ntoken: {}".format(device["uuid"], device["token"]))
+    device = { "uuid": device["uuid"], "token": device["token"] }
+    print(json.dumps(device))
 
 
 def unregister_device(device):
