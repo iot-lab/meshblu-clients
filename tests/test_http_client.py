@@ -43,6 +43,18 @@ def test_get_devices_with_query(api):
     assert Gateway.uuid not in uuids
 
 
+def test_reset_token(api):
+    reg = api.register_device()
+
+    api.auth = Gateway.auth
+    reg2 = api.reset_token(reg["uuid"])
+
+    with pytest.raises(Exception):
+        api.unregister_device((reg["uuid"], reg["token"]))
+    reg = reg2
+    api.unregister_device((reg["uuid"], reg["token"]))
+
+
 def test_publish(api, subscriber):
     payload = {
         "publish_from_device": Device.uuid,
