@@ -17,6 +17,9 @@ class Client:
         uuid = device_auth[0]
         return self._call('DELETE', "devices/" + uuid, auth=device_auth)
 
+    def reset_token(self, device_uuid):
+        return self._call('POST', "devices/{}/token".format(device_uuid))
+
     def publish(self, target_uuid, payload):
         body = {
                  'devices': [target_uuid],
