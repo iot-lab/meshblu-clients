@@ -23,5 +23,6 @@ def register_devices(broker):
 
 def unregister_devices(broker):
     api = Client(broker.host)
-    api.unregister_device(Gateway.auth)
-    api.unregister_device(Device.auth)
+    api.auth = Device.auth
+    api.unregister_device(Gateway.uuid)
+    api.unregister_device(Device.uuid)

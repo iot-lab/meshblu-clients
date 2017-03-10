@@ -39,7 +39,7 @@ def test_registry_list_query():
 
 def test_registry_register_unregister():
     reg = run("./registry.py register")
-    ret = run("./registry.py unregister {uuid} {token}".format(**reg))
+    ret = run("./registry.py unregister {uuid}".format(**reg))
 
     assert ret['uuid'] == reg['uuid']
 
@@ -50,9 +50,9 @@ def test_publisher():
 
 def test_cleanup_config_devices():
     import config
-    cmd = "./registry.py unregister {uuid} {token}"
-    run(cmd.format(**config.gateway))
+    cmd = "./registry.py unregister {uuid}"
     run(cmd.format(**config.device))
+    run(cmd.format(**config.gateway))
 
     os.remove("config.py")
     os.remove("config.pyc")
