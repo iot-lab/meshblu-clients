@@ -13,9 +13,8 @@ class Client:
     def register_device(self, payload=None):
         return self._call('POST', "devices", json=payload)
 
-    def unregister_device(self, device_auth):
-        uuid = device_auth[0]
-        return self._call('DELETE', "devices/" + uuid, auth=device_auth)
+    def unregister_device(self, uuid):
+        return self._call('DELETE', "devices/" + uuid)
 
     def reset_token(self, device_uuid):
         return self._call('POST', "devices/{}/token".format(device_uuid))
