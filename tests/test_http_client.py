@@ -48,11 +48,14 @@ def test_reset_token(api):
 
     api.auth = Gateway.auth
     reg2 = api.reset_token(reg["uuid"])
+    assert reg["uuid"] == reg2["uuid"]
 
     with pytest.raises(Exception):
-        api.unregister_device((reg["uuid"], reg["token"]))
-    reg = reg2
-    api.unregister_device((reg["uuid"], reg["token"]))
+        api.auth = (reg["uuid"], reg["token"])
+        api.unregister_device(reg["uuid"])
+
+    api.auth = Gateway.auth
+    api.unregister_device(reg["uuid"])
 
 
 def test_publish(api, subscriber):
@@ -72,8 +75,9 @@ def test_publish(api, subscriber):
 
 
 def test_unregister_devices(api):
-    api.unregister_device(Gateway.auth)
-    api.unregister_device(Device.auth)
+    api.auth = Device.auth
+    api.unregister_device(uuid=Gateway.auth[0])
+    api.unregister_device(uuid=Device.auth[0])
 
 
 @pytest.fixture

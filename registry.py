@@ -9,7 +9,7 @@ import embers.meshblu.http as http
 def main():
     if len(sys.argv) < 2:
         prog = sys.argv[0]
-        print("usage: " + prog + " list|register|unregister <uuid> <token>|reset <uuid>")
+        print("usage: " + prog + " list|register|unregister <uuid>|reset <uuid>")
         print("       " + prog + " init_config [<broker address>]")
         return
 
@@ -20,7 +20,7 @@ def main():
     elif cmd == "register":
         register_device()
     elif cmd == "unregister":
-        unregister_device({ "uuid": sys.argv[2], "token": sys.argv[3] })
+        unregister_device(uuid=sys.argv[2])
     elif cmd == "reset":
         reset_token(device_uuid=sys.argv[2])
     elif cmd == "init_config":
@@ -45,10 +45,9 @@ def register_device():
     print(json.dumps(device))
 
 
-def unregister_device(device):
+def unregister_device(uuid):
     api = get_meshblu_api()
-    device_auth = (device["uuid"], device["token"])
-    ret = api.unregister_device(device_auth)
+    ret = api.unregister_device(uuid)
     print(json.dumps(ret))
 
 
