@@ -9,7 +9,7 @@ import embers.meshblu.http as http
 def main():
     if len(sys.argv) < 2:
         prog = sys.argv[0]
-        print("usage: " + prog + " list|register|unregister <uuid> <token>")
+        print("usage: " + prog + " list|register|unregister <uuid> <token>|reset <uuid>")
         print("       " + prog + " init_config [<broker address>]")
         return
 
@@ -21,6 +21,8 @@ def main():
         register_device()
     elif cmd == "unregister":
         unregister_device({ "uuid": sys.argv[2], "token": sys.argv[3] })
+    elif cmd == "reset":
+        reset_token(device_uuid=sys.argv[2])
     elif cmd == "init_config":
         broker_address = sys.argv[2:3] or "127.0.0.1"
         init_config(broker_address)
@@ -30,9 +32,7 @@ def main():
 
 
 def list_devices(query=None):
-    config = get_config()
     api = get_meshblu_api()
-    api.auth = (config.gateway['uuid'], config.gateway['token'])
     devices = api.get_devices(query)
     print(json.dumps(devices))
 
@@ -49,6 +49,12 @@ def unregister_device(device):
     api = get_meshblu_api()
     device_auth = (device["uuid"], device["token"])
     ret = api.unregister_device(device_auth)
+    print(json.dumps(ret))
+
+
+def reset_token(device_uuid):
+    api = get_meshblu_api()
+    ret = api.reset_token(device_uuid)
     print(json.dumps(ret))
 
 
@@ -73,7 +79,8 @@ def get_config():
 
 def get_meshblu_api():
     config = get_config()
-    return http.Client(config.broker_address)
+    auth = (config.gateway['uuid'], config.gateway['token'])
+    return http.Client(config.broker_address, auth)
 
 
 main()
