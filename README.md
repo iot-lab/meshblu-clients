@@ -1,4 +1,4 @@
-This is the Meshblu clients sample repository
+This is the Python [Meshblu](https://meshblu.readme.io/) clients sample repository.
 
 Installing
 ----------
@@ -52,6 +52,23 @@ To check things work, use the sample cli programs:
 	./registry.py list device=gateway
 	./subscriber.py  # (run in separate terminal)
 	./publisher.py
+
+Publisher script use HTTP protocol by default. You can specify another protocol as below
+	
+	./publisher.py [coap|mqtt]
+
+
+Meshblu API implementation
+--------------------------
+
+| Meshblu request     |      Protocol      |
+|---------------------|:------------------:|
+| Register device     |   HTTP             |
+| Unregister device   |   HTTP             |
+| List devices        |   HTTP             |
+| Reset device token  |   HTTP             |
+| Send message        |   HTTP/CoAP/MQTT   |
+| Subscribe           |   MQTT             |
 
 
 Running the tests
