@@ -4,10 +4,12 @@ Installing
 ----------
 
 To run these sample clients, install the required libs
+listed in requirements.txt, then install the package itself,
 e.g. in a dedicated python virtual env:
 
 	mkvirtualenv py
 	pip install -r requirements.txt
+	pip install .
 
 
 You will need a running instance of Meshblu.
