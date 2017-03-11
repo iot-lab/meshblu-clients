@@ -10,6 +10,7 @@ def main():
     if len(sys.argv) < 2:
         prog = sys.argv[0]
         print("usage: " + prog + " list|register|unregister <uuid>|reset <uuid>")
+        print("       " + prog + " update <uuid> <key=value> [key=value]...")
         print("       " + prog + " init_config [<broker address>]")
         return
 
@@ -23,6 +24,10 @@ def main():
         unregister_device(uuid=sys.argv[2])
     elif cmd == "reset":
         reset_token(device_uuid=sys.argv[2])
+    elif cmd == "update":
+        uuid = sys.argv[2]
+        query = dict([ x.split("=") for x in sys.argv[3:] ])
+        update_device(uuid=uuid, metadata=query)
     elif cmd == "init_config":
         broker_address = sys.argv[2:3] or "127.0.0.1"
         init_config(broker_address)
@@ -49,6 +54,12 @@ def unregister_device(uuid):
     api = get_meshblu_api()
     ret = api.unregister_device(uuid)
     print(json.dumps(ret))
+
+
+def update_device(uuid, metadata):
+    api = get_meshblu_api()
+    ret = api.update_metadata(uuid, metadata)
+    # ret == null
 
 
 def reset_token(device_uuid):

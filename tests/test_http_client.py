@@ -43,6 +43,20 @@ def test_get_devices_with_query(api):
     assert Gateway.uuid not in uuids
 
 
+def test_update_metadata(api):
+    metadata = { "test_key": "updated test value" }
+    api.auth = Device.auth
+    api.update_metadata(Device.uuid, metadata)
+
+    ret = api.get_devices(metadata)
+
+    uuids = [ device['uuid'] for device in ret['devices'] ]
+    assert Device.uuid in uuids
+
+    device = api.get_devices({"uuid": Device.uuid})["devices"][0]
+    assert device["meshblu"]["updatedBy"] == Device.uuid
+
+
 def test_reset_token(api):
     reg = api.register_device()
 

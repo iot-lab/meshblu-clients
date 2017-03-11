@@ -16,6 +16,9 @@ class Client:
     def unregister_device(self, uuid):
         return self._call('DELETE', "devices/" + uuid)
 
+    def update_metadata(self, uuid, payload):
+        return self._call('PUT', "devices/" + uuid, json=payload)
+
     def reset_token(self, device_uuid):
         return self._call('POST', "devices/{}/token".format(device_uuid))
 
