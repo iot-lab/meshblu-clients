@@ -24,11 +24,11 @@ def test_register_device(api):
 def test_get_devices(api):
     api.auth = Gateway.auth
     ret = api.get_devices()
-    uuids = [ device['uuid'] for device in ret['devices'] ]
+    uuids = [ device['uuid'] for device in ret ]
     assert Gateway.uuid in uuids
     assert Device.uuid in uuids
 
-    device = [ d for d in ret['devices'] if d["uuid"] == Device.uuid ][0]
+    device = [ d for d in ret if d["uuid"] == Device.uuid ][0]
     assert device.has_key("test_key")
     assert device["test_key"] == "test value"
 
@@ -38,7 +38,7 @@ def test_get_devices_with_query(api):
     api.auth = Gateway.auth
     ret = api.get_devices(query)
 
-    uuids = [ device['uuid'] for device in ret['devices'] ]
+    uuids = [ device['uuid'] for device in ret ]
     assert Device.uuid in uuids
     assert Gateway.uuid not in uuids
 
@@ -50,10 +50,10 @@ def test_update_metadata(api):
 
     ret = api.get_devices(metadata)
 
-    uuids = [ device['uuid'] for device in ret['devices'] ]
+    uuids = [ device['uuid'] for device in ret ]
     assert Device.uuid in uuids
 
-    device = api.get_devices({"uuid": Device.uuid})["devices"][0]
+    device = api.get_devices({"uuid": Device.uuid})[0]
     assert device["meshblu"]["updatedBy"] == Device.uuid
 
 

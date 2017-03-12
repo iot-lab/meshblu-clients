@@ -26,14 +26,14 @@ def test_registry_init_config():
 def test_registry_list():
     ret = run("./registry.py list")
 
-    assert len(ret["devices"]) >= 2
+    assert len(ret) >= 2
 
 
 def test_registry_list_query():
     ret = run("./registry.py list device=gateway")
 
     import config
-    device = ret["devices"][0]
+    device = ret[0]
     assert device["uuid"] == config.gateway["uuid"]
 
 

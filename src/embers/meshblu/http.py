@@ -8,7 +8,7 @@ class Client:
         self.auth = auth
 
     def get_devices(self, query=None):
-        return self._call('GET', "devices", json=query)
+        return self._call('GET', "devices", json=query)["devices"]
 
     def register_device(self, payload=None):
         return self._call('POST', "devices", json=payload)
