@@ -15,7 +15,7 @@ setup(
     license        = "=== TBD ===",
     packages       = find_packages("src"),
     package_dir    = {"": "src"},
-    namespace_packages = [PACKAGE],
+    namespace_packages = ["embers", PACKAGE],
 
     install_requires = [
         "requests",
