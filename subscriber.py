@@ -7,6 +7,9 @@ import embers.meshblu.subscriber as subscriber
 import sys
 
 
+one_shot = sys.argv[1:2] and sys.argv[1] == "one-shot"
+
+
 def main():
     sub = subscriber.get_subscriber(gateway["uuid"])
     sub.on_message = on_message
@@ -22,7 +25,8 @@ def main():
 
 def on_message(sub, message):
     print(message.payload)
-    sub.disconnect()
+    if one_shot:
+        sub.disconnect()
 
 
 def on_subscribe(sub):
