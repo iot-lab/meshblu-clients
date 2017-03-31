@@ -18,7 +18,7 @@ class Client:
         self.client.stop()
 
 
-import logging; logging.basicConfig()
+import logging; logging.basicConfig(level=logging.ERROR)
 
 from coapthon import defines
 from coapthon.client.coap import CoAP
@@ -27,10 +27,12 @@ from coapthon.messages.option import Option
 from coapthon.utils import generate_random_token
 from multiprocessing import Queue
 import random
+import socket
 
 class CoapClient(object):
 
     def __init__(self, broker_addr):
+        broker_addr = socket.gethostbyname(broker_addr)
         self.destination = (broker_addr, 5683)
         self.protocol = CoAP(
             self.destination,
