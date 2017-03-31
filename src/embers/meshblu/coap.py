@@ -18,7 +18,7 @@ class Client:
         self.client.stop()
 
 
-import logging; logging.basicConfig()
+import logging; logging.basicConfig(level=logging.ERROR)
 
 from coapthon import defines
 from coapthon.client.coap import CoAP
