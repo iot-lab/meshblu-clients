@@ -32,7 +32,7 @@ import socket
 class CoapClient(object):
 
     def __init__(self, broker_addr):
-        broker_addr = socket.gethostbyname(broker_addr)
+        broker_addr = socket.getaddrinfo(broker_addr, 0)[0][4][0]
         self.destination = (broker_addr, 5683)
         self.protocol = CoAP(
             self.destination,
