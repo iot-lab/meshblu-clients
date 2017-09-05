@@ -1,7 +1,6 @@
 import requests
 import json
 
-
 class Client:
     def __init__(self, broker_host, auth=None):
         self.broker_url = "http://{}/".format(broker_host)
@@ -35,12 +34,13 @@ class Client:
         return _call(url, method, auth, json=json)
 
 
-def _call(url, method, auth, json=None):
+def _call(url, method, auth, json=None, verify=True):
     req = requests.request(
               url=url,
               method=method,
               json=json,
               auth=auth,
+              verify=verify,
     )
     req.raise_for_status()
     return req.json() if req.text else None
